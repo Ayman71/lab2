@@ -23,6 +23,8 @@ then
 fi
 
 mkdir -p "$malicious_dir"
+whitelist="whitelist.txt"
+source ./whitelist_func.sh
 
 flagged_extensions=(
     ".exe"
@@ -52,6 +54,11 @@ is_malicious(){
     filename=$(basename "$file")
     extension=${filename##*.}
     extension=".$extension"
+
+    if is_whitelisted "$file"
+    then
+	return 1
+    fi
 
     for ext in "${flagged_extensions[@]}"
     do

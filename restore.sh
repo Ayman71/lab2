@@ -9,6 +9,9 @@ fi
 dir="$1"
 malicious_dir="$2"
 
+whitelist="whitelist.txt"
+source ./whitelist_func
+
 if [ ! -d "$dir" ]
 then
     echo "Error: source directory does not exist"
@@ -73,6 +76,12 @@ do
 
     case "$action" in
 	1)
+	    touch "$whitelist"
+	    if ! is_whitelisted "$selected_file"
+            then
+                echo "$filename" >> "$whitelist"
+            fi
+
 	    mv -- "$selected_file" "$dir/$filename"
 	    echo "Restored $filename to $dir"
 	    ;;
