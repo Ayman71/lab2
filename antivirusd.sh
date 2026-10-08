@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$#" -ne 3]
+if [ "$#" -ne 3 ]
 then
     echo "Error: $0 dir malicious_dir interval_secs"
     exit 1
@@ -55,7 +55,7 @@ is_malicious(){
 
     for ext in "${flagged_extensions[@]}"
     do
-	if [ "$extension" = "$ext" ]
+	if [[ "${extension,,}" == "$ext" ]]
 	then
 	   return 0
         fi
@@ -86,7 +86,7 @@ scan_directory() {
 	if is_malicious "$file"
 	then
 	    echo "$file is malicious and it has been DELETED"
-	    cp -- "$file" "malicious_dir/$filename"
+	    cp -- "$file" "$malicious_dir/$filename"
 	    rm -- "$file"
 	fi
     done < <(find "$dir" -maxdepth 1 -type f -print0)
@@ -96,6 +96,7 @@ if [ ! -f "$last_snap" ]
 then
     echo "First run: scanning...."
     scan_directory
+    ls -l "$dir" > "$last_snap"
 else
     echo "Using last snapshot: $last_snap"
 fi
