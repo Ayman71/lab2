@@ -20,7 +20,6 @@ Simple Antivirus Project
     
 4. Usage
     Run antivirus.sh: make antivirus DIR MALICIOUS_DIR INTERVAL
-    
     DIR: Directory to monitor
     MALICIOUS_DIR: Directory to quarantine malicious files
     INTERVAL: Number of seconds between each scan
