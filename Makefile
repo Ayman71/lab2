@@ -7,7 +7,7 @@ INTERVAL ?= 10
 setup:
 	mkdir -p $(MALICIOUS_DIR)
 antivirus: setup
-	./antivirus.sh $(DIR) $(MALICIOUS_DIR) $(INTERVAL)
+	./antivirusd.sh $(DIR) $(MALICIOUS_DIR) $(INTERVAL)
 restore: setup
 	./restore.sh $(DIR) $(MALICIOUS_DIR)
 clean:
